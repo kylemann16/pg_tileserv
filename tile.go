@@ -64,6 +64,7 @@ func (tile *Tile) Bounds() Bounds {
 
 	// Tile width in EPSG:3857
 	tileMercSize := tile.Width()
+	fmt.Printf("Zoom: %+v, X: %+v, Y: %+v, Ext: %+v\ntileSize: %+v\n", tile.Zoom, tile.X, tile.Y, tile.Ext, tileMercSize)
 
 	// Calculate geographic bounds from tile coordinates
 	// XYZ tile coordinates are in "image space" so origin is
@@ -72,6 +73,10 @@ func (tile *Tile) Bounds() Bounds {
 	xmax := worldMercMin + (tileMercSize * float64(tile.X+1))
 	ymin := worldMercMax - (tileMercSize * float64(tile.Y+1))
 	ymax := worldMercMax - (tileMercSize * float64(tile.Y))
+
+	// fmt.Printf("tile.X: %+v, %+v\n", tile.X, float64(tile.X+1))
+	// fmt.Printf("worldMin: %+v, worldMax %+v\n", worldMercMin, worldMercMax)
+	// fmt.Printf("xmin: %+v\nymin: %+v\nxmax: %+v\nymax: %+v\n", xmin, ymin, xmax, ymax)
 
 	return Bounds{xmin, ymin, xmax, ymax}
 }

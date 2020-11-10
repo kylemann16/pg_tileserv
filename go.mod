@@ -3,6 +3,7 @@ module github.com/CrunchyData/pg_tileserv
 go 1.13
 
 require (
+	github.com/Masterminds/sprig/v3 v3.1.0
 	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.7.3
 	github.com/jackc/pgconn v1.3.2
@@ -11,6 +12,6 @@ require (
 	github.com/pborman/getopt v0.0.0-20190409184431-ee0cd42419d3
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.1
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.5.1
 	github.com/theckman/httpforwarded v0.4.0
 )

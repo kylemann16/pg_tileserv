@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export DATABASE_URL="postgresql://postgres:asdfasdf@localhost:5432/dev-db"
+
+go build
+go install
+$GOPATH/bin/pg_tileserv

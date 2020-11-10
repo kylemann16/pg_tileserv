@@ -90,6 +90,7 @@ func (lyr LayerTable) WriteLayerJson(w http.ResponseWriter, req *http.Request) e
 
 func (lyr LayerTable) GetTileRequest(tile Tile, r *http.Request) TileRequest {
 	rp := lyr.getQueryParameters(r.URL.Query())
+
 	sql, _ := lyr.requestSql(&tile, &rp)
 
 	tr := TileRequest{
@@ -326,6 +327,7 @@ func (lyr *LayerTable) GetBounds() (Bounds, error) {
 
 func (lyr *LayerTable) requestSql(tile *Tile, qp *queryParameters) (string, error) {
 
+	fmt.Printf("Tile: %+v\n", tile)
 	type sqlParameters struct {
 		TileSql        string
 		QuerySql       string
@@ -382,6 +384,10 @@ func (lyr *LayerTable) requestSql(tile *Tile, qp *queryParameters) (string, erro
 	if qp.Limit > 0 {
 		sp.Limit = fmt.Sprintf("LIMIT %d", qp.Limit)
 	}
+
+	// fmt.Printf("mvtParams:\n %s\n", strings.Join(mvtParams, ", "))
+	fmt.Printf("tile:\n %+v\n", sp.TileSql)
+	fmt.Printf("query:\n %+v\n", sp.QuerySql)
 
 	// TODO: Remove ST_Force2D when fixes to line clipping are common
 	// in GEOS. See https://trac.osgeo.org/postgis/ticket/4690
@@ -457,6 +463,7 @@ func GetTableLayers() ([]LayerTable, error) {
 	}
 
 	rows, err := db.Query(context.Background(), layerSql)
+
 	if err != nil {
 		return nil, connerr
 	}

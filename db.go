@@ -111,9 +111,11 @@ func DBTileRequest(ctx context.Context, tr *TileRequest) ([]byte, error) {
 		log.Error(err)
 		return nil, err
 	}
+
 	row := db.QueryRow(ctx, tr.Sql, tr.Args...)
 	var mvtTile []byte
 	err = row.Scan(&mvtTile)
+	// fmt.Printf("MvtTile: %+v\n", mvtTile)
 	if err != nil {
 		log.Warn(err)
 

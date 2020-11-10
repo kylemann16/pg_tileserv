@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
-	"io/ioutil"
 
 	// REST routing
 	"github.com/gorilla/handlers"
@@ -192,11 +192,14 @@ func requestPreview(w http.ResponseWriter, r *http.Request) error {
 
 	switch lyr.(type) {
 	case LayerTable:
+		fmt.Printf("Layer Table...\n")
+
 		tmpl, err := template.ParseFiles(fmt.Sprintf("%s/preview-table.html", viper.GetString("AssetsPath")))
 		if err != nil {
 			return err
 		}
 		l, _ := lyr.(LayerTable)
+
 		tmpl.Execute(w, l)
 	case LayerFunction:
 		tmpl, err := template.ParseFiles(fmt.Sprintf("%s/preview-function.html", viper.GetString("AssetsPath")))
